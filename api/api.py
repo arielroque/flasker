@@ -1,35 +1,20 @@
 from flask import Flask, jsonify, request
-from flask_restful import Resource, Api, reqparse
+#from resources.user.api import user_blueprint
+from flask_pymongo import PyMongo
 
-# creating the flask app
-app = Flask(__name__)
-# creating the api object
-api = Api(app)
+import os
 
-parser = reqparse.RequestParser()
+api = Flask(__name__)
+#api.register_blueprint(user_blueprint)
 
+api.config["MONGO_URI"] = 'mongodb://' + os.environ['MONGODB_USERNAME'] + ':' + os.environ['MONGODB_PASSWORD'] + \
+    '@' + os.environ['MONGODB_HOSTNAME'] + \
+    ':27017/' + os.environ['MONGODB_DATABASE']
 
-class Hello(Resource):
-    def get(self, id=None):
-        return jsonify({'message': 'Hello World Flask'})
+mongo = PyMongo(api)
+db = mongo.db
 
-    def post(self, id=None):
-        parser.add_argument('name', type=str)
-        args = parser.parse_args()
-        return jsonify({'message': "oi "+str(args['name'])})
-
-    def put(self, id):
-        parser.add_argument('name', type=str)
-        args = parser.parse_args()
-        return jsonify({'message': "atualizando para o nome " + str(args['name'])})
-
-    def delete(self, id):
-        parser.add_argument('name', type=str)
-        args = parser.parse_args()
-        return jsonify({'message': "atualizando para o nome " + str(args['name'])})
-
-
-api.add_resource(Hello, '/', '/update/<int:id>')
+print(_todos=db.todo.find())
 
 if(__name__ == '__main__'):
-    app.run(host='0.0.0.0', port= 5000, debug=True)
+    api.run(host='0.0.0.0', port=5050, debug=True)
