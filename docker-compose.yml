@@ -4,7 +4,7 @@ services:
   #Flask App Container
   flask:
     build:
-      context: api
+      context: src
       dockerfile: Dockerfile
     container_name: flask
     restart: unless-stopped
@@ -44,6 +44,30 @@ services:
       - mongodbdata:/data/db
     networks:
       - backend
+
+#Nginx Service
+  webserver:
+    build:
+      context: src/nginx
+      dockerfile: Dockerfile
+    container_name: webserver
+    restart: unless-stopped
+    tty: true
+    environment:
+      APP_ENV: "dev"
+      APP_NAME: "webserver"
+      APP_DEBUG: "true"
+      SERVICE_NAME: "webserver"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - nginxdata:/etc/nginx
+    depends_on:
+      - flask
+    networks:
+      - frontend
+
 
 
 #Docker Networks
