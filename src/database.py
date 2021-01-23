@@ -3,6 +3,7 @@ from bson import ObjectId
 from datetime import datetime
 import os
 
+
 class Database:
 
     def __init__(self):
@@ -12,6 +13,7 @@ class Database:
         self.db = self.db[os.environ['MONGODB_DATABASE']]
 
     def insert(self, element, collection_name):
+        
         element["created"] = datetime.now()
         element["updated"] = datetime.now()
 
@@ -20,7 +22,18 @@ class Database:
         return str(inserted)
 
     def find(self, criteria, collection_name, projetion=None, sort=None, limit=0, cursor=False):
-        pass
+
+        resp = []
+
+        itens = self.db[collection_name].find(
+            filter=criteria, limit=limit, sort=sort)
+
+        for item in itens:
+            if "_id" in item:
+                item["_id"] = str(item["_id"])
+            resp.append(item)
+
+        return resp
 
     def find_by_id(self, id, collection_name):
         pass
@@ -29,4 +42,5 @@ class Database:
         pass
 
     def delete(self, id, collection_name):
-        pass
+        deleted = self.db[collection_name].delete_one({"_id": ObjectId(id)})
+        return bool(deleted.deleted_count > 0)
