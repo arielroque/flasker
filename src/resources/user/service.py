@@ -24,12 +24,22 @@ class UserService(object):
         return res
 
     def get_user(self, user_id):
-        res = self.db.find_by_id(user_id, self.collection_name)
+        user = self.db.find_by_id(user_id, self.collection_name)
+
+        res = jsonify(
+            status=200, user=user)
 
         return res
 
     def update_user(self, user_id, fields):
-        res = self.db.update(user_id, self.collection_name)
+
+        res = jsonify(
+            status=200, message=f"User {user_id} successfully updated")
+
+        is_updated = self.db.update(user_id, fields, self.collection_name)
+
+        if(not is_updated):
+            pass
 
         return res
 

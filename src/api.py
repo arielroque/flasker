@@ -1,11 +1,9 @@
-from flask import Flask, jsonify, request
-from resources.user.api import user_blueprint
-
 import os
+from flask import Flask, jsonify, request
+from routes import Routes
 
 api = Flask(__name__)
-api.register_blueprint(user_blueprint)
+routes = Routes(api)
 
-
-if(__name__ == '__main__'):
-    api.run(host='0.0.0.0', port= os.environ['APP_PORT'], debug=True)
+if __name__ == "__main__":
+    api.run(host="0.0.0.0", port=os.environ["APP_PORT"], debug=True)
