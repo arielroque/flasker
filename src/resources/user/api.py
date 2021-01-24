@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from resources.user.controller import UserController
 
-user_blueprint = Blueprint('users', __name__, url_prefix="/user")
+user_blueprint = Blueprint('user', __name__, url_prefix="/user")
 
 
 @user_blueprint.route("", methods=["POST"])
