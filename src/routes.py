@@ -23,4 +23,3 @@ class Routes:
 
         for route in ROUTES:
             self.__register_routes(route)
-        
