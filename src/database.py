@@ -13,7 +13,7 @@ class Database:
         self.db = self.db[os.environ['MONGODB_DATABASE']]
 
     def insert(self, element, collection_name):
-        
+
         element["created"] = datetime.now()
         element["updated"] = datetime.now()
 
@@ -36,10 +36,15 @@ class Database:
         return resp
 
     def find_by_id(self, id, collection_name):
-        pass
 
-    def update(self, element, collection_name):
-        pass
+        item = self.find({"_id": ObjectId(id)}, collection_name)
+        return item
+
+    def update(self, id, fields, collection_name):
+        updated = self.db[collection_name].update_one(
+            {"_id": ObjectId(id)}, {"$set": fields})
+
+        return bool(updated.matched_count > 0)
 
     def delete(self, id, collection_name):
         deleted = self.db[collection_name].delete_one({"_id": ObjectId(id)})

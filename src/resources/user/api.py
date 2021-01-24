@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from resources.user.controller import UserController
+
 user_blueprint = Blueprint('users', __name__, url_prefix="/users")
 
 
@@ -28,4 +29,11 @@ def get_user(user_id):
 def delete_user(user_id):
 
     res = UserController().delete_user(user_id)
+    return res
+
+@user_blueprint.route("/<user_id>", methods=["PUT"])
+def update_user(user_id):
+
+    fields = request.get_json(force=True)
+    res = UserController().update_user(user_id,fields)
     return res
