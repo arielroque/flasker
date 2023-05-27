@@ -1,14 +1,37 @@
 # Flasker
-A boilerplate of flask Restful API + MongoDB + Docker 
+A boilerplate of flask Restful API + MongoDB + Nginx + Docker 
 
-## For deployment
+## :bookmark: Requirements
+
+- [Docker](https://www.docker.com/)
+- [Docker Compose](https://www.docker.com/)
+
+## :triangular_flag_on_post: Starting
+
+```bash
+#Clone the project
+git clone https://github.com/arielroque/memory-safety.git
+
+#Enter in the folder 
+cd memory-safety
+
+## Tl;dr
+
+```bash
+# Deploy 
+./deploy.sh
+```
+
+## :building_construction: For deployment
 
 #### Build the Containers with Docker Compose
 
 ```bash
+# Build
+sudo docker-compose up --build --force-recreate
 
-# Build!
-sudo docker-compose up --build --force-recreate 
+# Build recreating the containers
+#sudo docker-compose up --build --force-recreate 
 ```
 
 #### Configure the credenctials to conect Flask with Mongo database container
@@ -28,25 +51,27 @@ db.createUser({user: 'flaskuser', pwd: 'f19skp9ssw0rd', roles: [{role: 'readWrit
 exit
 ```
 
-#### Requests
+## :microscope: Making Requests
 
 ```bash
-# Post
+# Add a new user
 curl -v -X POST -H "Content-Type: application/json" -d '{"name":"John Doe","email":"johndoe@example.com"}' localhost:80/user
 
-# Get
+# Get the users
 curl -v localhost:80/user
 
-# Get by id
+# Get an user by id
 curl -v localhost:80/user/<id>
 
-# Update user
+# Update an user
 curl -v -X PUT -H "Content-Type: application/json" -d '{"name":"John","email":"johndoe@example.com"}' localhost:80/user/<id>
 
-# Delete
+# Delete an user
 curl -v -X DELETE localhost:80/user/<id>
 ```
 
-## For development
+## :confused: Uninstall
 
-#### Requirements
+```bash
+docker-compose down
+```
