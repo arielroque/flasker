@@ -2,7 +2,6 @@
 A boilerplate of flask Restful API + MongoDB + Nginx + Docker 
 
 ## :bookmark: Requirements
-
 - [Docker](https://www.docker.com/)
 - [Docker Compose](https://www.docker.com/)
 
@@ -10,12 +9,12 @@ A boilerplate of flask Restful API + MongoDB + Nginx + Docker
 
 ```bash
 #Clone the project
-git clone https://github.com/arielroque/memory-safety.git
-
+git clone https://github.com/arielroque/flasker.git
 #Enter in the folder 
-cd memory-safety
+cd flasker
+```
 
-## Tl;dr
+## :running: Tl;dr
 
 ```bash
 # Deploy 
@@ -28,10 +27,10 @@ cd memory-safety
 
 ```bash
 # Build
-sudo docker-compose up --build --force-recreate
+docker-compose up
 
 # Build recreating the containers
-#sudo docker-compose up --build --force-recreate 
+#docker-compose up --build --force-recreate 
 ```
 
 #### Configure the credenctials to conect Flask with Mongo database container
