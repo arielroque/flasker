@@ -1,5 +1,5 @@
 FROM alpine:3.7
-LABEL MAINTAINER="everdata"
+LABEL MAINTAINER="flasker"
 
 RUN apk --update add nginx && \
     ln -sf /dev/stdout /var/log/nginx/access.log && \

@@ -2,7 +2,6 @@ from database import Database
 from flask import jsonify
 import os
 
-
 class UserService(object):
 
     def __init__(self):
@@ -15,7 +14,6 @@ class UserService(object):
         return res
 
     def get_users(self):
-
         users = self.db.find(None, self.collection_name)
 
         res = jsonify(
@@ -32,7 +30,6 @@ class UserService(object):
         return res
 
     def update_user(self, user_id, fields):
-
         res = jsonify(
             status=200, message=f"User {user_id} successfully updated")
 
@@ -44,7 +41,6 @@ class UserService(object):
         return res
 
     def delete(self, user_id):
-
         res = jsonify(
             status=200, message=f"User {user_id} successfully deleted")
 

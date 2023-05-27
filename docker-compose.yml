@@ -1,6 +1,5 @@
 version: '3'
 services:
-
   #Flask App Container
   flask:
     build:
@@ -67,8 +66,6 @@ services:
       - flask
     networks:
       - frontend
-
-
 
 #Docker Networks
 networks:

@@ -17,9 +17,9 @@ class Routes:
         Add all the blueprints of API in the ROUTES variable
         """
 
-        ROUTES = {
+        ROUTES = [
             user_blueprint
-        }
+        ]
 
         for route in ROUTES:
             self.__register_routes(route)

@@ -1,9 +1,7 @@
 import os
 from datetime import datetime
-
 from bson import ObjectId
 from pymongo import MongoClient
-
 
 class Database:
     def __init__(self):
@@ -35,8 +33,7 @@ class Database:
         projetion=None,
         sort=None,
         limit=0,
-        cursor=False,
-    ):
+        cursor=False):
 
         resp = []
 
@@ -50,7 +47,6 @@ class Database:
         return resp
 
     def find_by_id(self, id, collection_name):
-
         item = self.find({"_id": ObjectId(id)}, collection_name)
         return item
 

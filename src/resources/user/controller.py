@@ -1,5 +1,5 @@
 from resources.user.service import UserService
-
+from resources.user.exceptions import MissingParametersError
 
 class UserController:
 
@@ -7,8 +7,18 @@ class UserController:
         self.service = UserService()
 
     def create_user(self, fields):
-        res = self.service.create_user(fields)
-        return res
+        res = {}
+        status = 200
+
+        try:
+            res = self.service.create_user(fields)
+
+        except MissingParametersError as mpe:
+            res['error'] = mpe.message
+            res['code'] = mpe.code
+            status = 400
+
+        return res,status
 
     def get_users(self):
         res = self.service.get_users()

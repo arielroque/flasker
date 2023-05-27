@@ -8,7 +8,7 @@ A boilerplate of flask Restful API + MongoDB + Docker
 ```bash
 
 # Build!
-sudo docker-compose up
+sudo docker-compose up --build --force-recreate 
 ```
 
 #### Configure the credenctials to conect Flask with Mongo database container
@@ -21,10 +21,30 @@ sudo docker-compose up
 mongo -u mongodbuser -p cl3v3rP9ssw0rd
 
 #Use the  database
-use 
+use flaskdb
 
 #Add user to connect with flask container
-db.createUser({user: '', pwd: '', roles: [{role: 'readWrite', db: ''}]})
+db.createUser({user: 'flaskuser', pwd: 'f19skp9ssw0rd', roles: [{role: 'readWrite', db: 'flaskdb'}]})
+exit
+```
+
+#### Requests
+
+```bash
+# Post
+curl -v -X POST -H "Content-Type: application/json" -d '{"name":"John Doe","email":"johndoe@example.com"}' localhost:80/user
+
+# Get
+curl -v localhost:80/user
+
+# Get by id
+curl -v localhost:80/user/<id>
+
+# Update user
+curl -v -X PUT -H "Content-Type: application/json" -d '{"name":"John","email":"johndoe@example.com"}' localhost:80/user/<id>
+
+# Delete
+curl -v -X DELETE localhost:80/user/<id>
 ```
 
 ## For development
